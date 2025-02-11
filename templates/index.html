@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2 class="section-title">Plan Your Route Efficiently</h2>
+    <form action="/submit" method="post" class="route-form">
+        <div class="form-group">
+            <label for="origin">Origin:</label>
+            <input type="text" id="origin" name="origin" placeholder="Enter starting location" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="destination">Destination:</label>
+            <input type="text" id="destination" name="destination" placeholder="Enter destination" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="fuel_efficiency">Fuel Efficiency (Km/L):</label>
+            <input type="number" id="fuel_efficiency" name="fuel_efficiency" placeholder="Enter fuel efficiency" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="vehicle_type">Select Vehicle Type:</label>
+            <select id="vehicle_type" name="vehicle_type" required onchange="updateVehicleInfo()">
+                <option value="" disabled selected>Select your vehicle type</option>
+                <option value="Delivery Vans">Delivery Vans</option>
+                <option value="Box Trucks">Box Trucks</option>
+                <option value="Tractor-Trailers">Tractor-Trailers</option>
+                <option value="Less-Than-Truckload (LTL) Trucks">Less-Than-Truckload (LTL) Trucks</option>
+            </select>
+        </div>
+        
+        <div id="vehicle_info" class="vehicle-info">
+            <p id="vehicle_weight"></p>
+            <p id="emission_factor"></p>
+        </div>
+        
+        <button type="submit" class="btn-submit">Calculate Route</button>
+    </form>
+</div>
+
+<script>
+    const vehicleData = {
+        "Delivery Vans": { weight: "2,500 - 4,500 kg", emissionFactor: "2.31 kg CO₂/l" },
+        "Box Trucks": { weight: "4,500 - 10,000 kg", emissionFactor: "2.68 kg CO₂/l" },
+        "Tractor-Trailers": { weight: "15,000 - 36,000+ kg", emissionFactor: "2.68 kg CO₂/l" },
+        "Less-Than-Truckload (LTL) Trucks": { weight: "10,000 - 20,000 kg", emissionFactor: "2.68 kg CO₂/l" }
+    };
+
+    function updateVehicleInfo() {
+        const vehicleType = document.getElementById("vehicle_type").value;
+        const vehicleInfo = vehicleData[vehicleType];
+
+        if (vehicleInfo) {
+            document.getElementById("vehicle_weight").innerText = "Weight: " + vehicleInfo.weight;
+            document.getElementById("emission_factor").innerText = "Emission Factor: " + vehicleInfo.emissionFactor;
+        } else {
+            document.getElementById("vehicle_weight").innerText = "";
+            document.getElementById("emission_factor").innerText = "";
+        }
+    }
+</script>
+{% endblock %}

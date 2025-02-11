@@ -1,0 +1,445 @@
+/* Enhanced CSS for the result page */
+body {
+    font-family: 'Roboto', Arial, sans-serif;
+    line-height: 1.6;
+    background: linear-gradient(135deg, #e9f7e9, #d1f5d1);
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.route-header {
+    display: flex; /* Enable Flexbox */
+    justify-content: space-between; /* Align items to left and right */
+    align-items: center; /* Vertically align items */
+    /* Add some spacing below */
+    padding-right: 10px;
+    
+}
+
+.route-header  h2{
+    font-size: 1.6em; /* Professional font size */
+    color: #2c3e50; /* Darker blue-gray for better readability */
+     border-left: 4px solid #4CAF50; /* Green accent line */
+    padding-left: 12px; /* Padding for left border */
+    font-weight: 600;
+    
+}
+
+h5 {
+    font-size: 1.2em;
+    color: #444;
+    margin-bottom: 10px;
+}
+/* Header Styling (Route Results) */
+/* Header Styling (Route Results) */
+.navbar {
+    background: linear-gradient(to right, #4CAF50, #3b8d40);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nav-logo .logo {
+    width: 60px;
+    height: auto;
+}
+
+.nav-title {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links li {
+    display: inline;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: #dff8df;
+}
+
+
+/* Route Details Styling */
+main h2, main h3 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    margin: 8px 0; /* Minimal spacing between headings */
+    line-height: 1.4;
+    
+}
+
+.route-container h4{
+    font-size:25px;
+}
+
+main h3 {
+    font-size: 1.3em; /* Slightly smaller than <h2> */
+    color: #2c3e50; /* Muted blue-gray */
+    border-left: 4px solid #4CAF50; /* Green accent line */
+    padding-left: 12px;;
+    
+  
+    font-weight: 600;
+    
+}
+
+/* "Possible Routes" Heading */
+main h3:last-of-type {
+ 
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+/* Add Responsive Design */
+@media (max-width: 768px) {
+    header {
+        padding: 10px; /* Reduce padding further for small screens */
+    }
+    header h1 {
+        font-size: 2em;
+    }
+    main h2 {
+        font-size: 1.5em;
+    }
+    main h3 {
+        font-size: 1.2em;
+    }
+}
+
+
+
+.error-message {
+    color: red;
+    font-weight: bold;
+    font-size: 1.1em;
+    text-align: center;
+    margin-top: 20px;
+}
+.route-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); /* Increased the minimum width to 400px */
+    gap: 20px;
+    max-width: 1400px; /* Optional: Adjust the container width */
+    margin: 20px auto;
+    padding: 20px;
+}
+
+
+
+.route-card {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 25px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+}
+
+.route-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.show-more-btn, .show-map-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 12px 25px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    margin-top: 15px;
+    transition: background-color 0.3s ease, transform 0.2s;
+    display: inline-block;
+    text-align: center;
+}
+
+.show-more-btn:hover, .show-map-btn:hover {
+    background-color: #45a049;
+    transform: scale(1.1);
+}
+
+.show-more-btn:focus, .show-map-btn:focus {
+    outline: none;
+    box-shadow: 0 0 8px rgba(76, 175, 80, 0.5);
+}
+
+.directions {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.directions li {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.directions li:last-child {
+    border-bottom: none;
+}
+
+.direction-step {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.direction-icon {
+    font-size: 1.8em;
+    color: #4CAF50;
+    margin-right: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    background-color: #e9f7ea;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.direction-details {
+    flex: 1;
+}
+
+.direction-details .instruction {
+    font-size: 1.1em;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.direction-details .distance {
+    font-size: 0.95em;
+    color: #777;
+}
+
+.details-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 1em;
+    margin-top: 15px;
+    transition: background-color 0.3s ease;
+}
+
+.details-button:hover {
+    background-color: #45a049;
+}
+
+.air-quality {
+    margin-top: 20px;
+    padding: 25px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #f7fdf7;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.air-quality h3 {
+    color: #4CAF50;
+    margin-bottom: 20px;
+    font-size: 28px;
+}
+
+.air-quality div {
+    margin-bottom: 15px;
+    padding: 15px;
+    border: 1px solid #4CAF50;
+    border-radius: 8px;
+    background-color: #e9f7ea;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.air-quality h4 {
+    margin: 0;
+    color: #333;
+    font-size: 1.2em;
+}
+
+.air-quality p {
+    margin: 8px 0;
+    color: #555;
+    font-size: 1em;
+}
+
+.air-quality div:hover{
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.air-quality strong {
+    color: #4CAF50;
+    font-weight: bold;
+}
+
+@media only screen and (max-width: 768px) {
+    body {
+        font-size: 14px;
+    }
+
+    header {
+        padding: 15px;
+        font-size: 1.2em;
+    }
+
+    .route-container {
+        padding: 15px;
+        gap: 15px;
+    }
+
+    .route-card {
+        padding: 15px;
+    }
+
+    .show-more-btn, .show-map-btn {
+        padding: 10px 20px;
+        font-size: 0.9em;
+    }
+
+    .direction-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1.4em;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .show-more-btn, .show-map-btn {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* Footer Styles */
+footer {
+    background: #4CAF50;
+    color: white;
+    text-align: center;
+    padding: 1px 0;
+}
+
+
+
+/*weather.css*/
+/* Weather Container Styling */
+.weather-container {
+    margin-top: 20px;
+    padding: 30px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #f7fdf7, #e3f9e5);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.weather-container h3 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: #388E3C;
+    font-weight: bold;
+    text-align: left;
+}
+
+/* Weather Card Styling */
+.weather-card {
+    margin: 20px 0;
+    padding: 25px;
+    border: 1px solid #4CAF50;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #ffffff, #e9f7ea);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    text-align: left;
+    overflow: hidden;
+    position: relative;
+}
+
+.weather-card h3 {
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+    color: #388E3C;
+    font-weight: bold;
+    border-left: 5px solid #388E3C;
+    padding-left: 14px;
+    letter-spacing: 0.5px;
+}
+
+/* Paragraph and Icon Styling */
+.weather-card p {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.6;
+    margin: 10px 0;
+}
+
+.weather-card i {
+    margin-right: 10px;
+    font-size: 1.5em;
+}
+
+/* Icon Colors */
+.icon-location {
+    color: #D32F2F; /* Red for location */
+}
+
+.icon-temperature {
+    color: #FF9800; /* Orange for temperature */
+}
+
+.icon-cloud {
+    color: #2196F3; /* Blue for clouds */
+}
+
+.icon-humidity {
+    color: #00ACC1; /* Teal for humidity */
+}
+
+.icon-sun {
+    color: #FFC107; /* Yellow for sun */
+}
+
+.icon-moon {
+    color: #9E9E9E; /* Gray for moon */
+}
+
+.icon-cloudiness {
+    color: #64B5F6; /* Light Blue for cloudiness */
+}
+
+/* Hover Effect */
+.weather-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}

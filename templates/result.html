@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Route Results</title>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Link to external stylesheet -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='result.css') }}">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="nav-logo">
+                <img src="{{ url_for('static', filename='JARVIS3.png') }}" alt="Jarvis Logo" class="logo">
+                <span class="nav-title">Jarvis Routing System</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About Us</a></li>
+                <li><a href="/contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="route-header">
+            <h2>From: {{ origin }} To {{ destination }}</h2>
+            <button class="show-map-btn" onclick="window.location.href='/map'">Show Map</button>
+        </div>
+
+        <h3 class="vehicletype">Vehicle Type: {{ vehicle_type }}</h3>
+
+        {% if error %}
+            <p class="error-message">Error: {{ error }}</p>
+        {% else %}
+            <h3 class="possibleroutes">Possible Routes:</h3>
+            <div class="route-container">
+                {% for route in routes %}
+                    <div class="route-card">
+                        <h4>Route {{ loop.index }}:</h4>
+                        <p><strong>Distance:</strong> {{ route.distance }} km</p>
+                        <p><strong>Estimated CO₂ Emissions:</strong> {{ route.emissions }} grams</p>
+                        <p><strong>Duration:</strong> {{ route.duration }}</p>
+                        <p><strong>Number of Tolls:</strong> {{ route.number_of_tolls }}</p>
+                        <p><strong>Total Toll Cost:</strong> <span>&#8377;</span>{{ route.total_toll_cost | round(2) }}</p>
+
+                        <h5><strong>Directions:</strong></h5>
+                        <ul class="directions">
+                            {% for step in route.steps[:3] %}  <!-- Show first 3 steps -->
+                                <li>
+                                    <div class="direction-step">
+                                        <span class="direction-icon">
+                                            {% if 'left' in step.html_instructions|lower %}
+                                                <i class="fa-solid fa-arrow-left"></i>
+                                            {% elif 'right' in step.html_instructions|lower %}
+                                                <i class="fa-solid fa-arrow-right"></i>
+                                            {% elif 'straight' in step.html_instructions|lower %}
+                                                <i class="fa-solid fa-arrow-up"></i>
+                                            {% elif 'start' in step.html_instructions|lower or 'arrive' in step.html_instructions|lower %}
+                                                <i class="fa-solid fa-location-dot"></i>
+                                            {% elif 'merge' in step.html_instructions|lower %}
+                                                <i class="fa-solid fa-compress-arrows-alt"></i>
+                                            {% elif 'roundabout' in step.html_instructions|lower %}
+                                                <i class="fa-solid fa-rotate"></i>
+                                            {% else %}
+                                                <i class="fa-solid fa-location-dot"></i>
+                                            {% endif %}
+                                        </span>
+                                        <div class="direction-details">
+                                            <p class="instruction">{{ step.html_instructions|safe }}</p>
+                                            <p class="distance">{{ step.distance.text }}</p>
+                                        </div>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+
+                        <ul class="directions more-directions" style="display: none;">
+                            {% for step in route.steps[3:] %}
+                                <li>
+                                    <div class="direction-step">
+                                        <span class="direction-icon">
+                                            {% if 'left' in step.html_instructions|lower %}
+                                                <i class="fa-solid fa-arrow-left"></i>
+                                            {% elif 'right' in step.html_instructions|lower %}
+                                                <i class="fa-solid fa-arrow-right"></i>
+                                            {% elif 'straight' in step.html_instructions|lower %}
+                                                <i class="fa-solid fa-arrow-up"></i>
+                                            {% elif 'start' in step.html_instructions|lower or 'arrive' in step.html_instructions|lower %}
+                                                <i class="fa-solid fa-location-dot"></i>
+                                            {% elif 'merge' in step.html_instructions|lower %}
+                                                <i class="fa-solid fa-compress-arrows-alt"></i>
+                                            {% elif 'roundabout' in step.html_instructions|lower %}
+                                                <i class="fa-solid fa-rotate"></i>
+                                            {% else %}
+                                                <i class="fa-solid fa-location-dot"></i>
+                                            {% endif %}
+                                        </span>
+                                        <div class="direction-details">
+                                            <p class="instruction">{{ step.html_instructions|safe }}</p>
+                                            <p class="distance">{{ step.distance.text }}</p>
+                                        </div>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+
+                        <button class="show-more-btn" onclick="toggleDirections(this)">Show More Directions</button>
+
+                        <p><strong>Duration With Current Traffic:</strong> {{ route.duration_in_traffic }}</p>
+                        <p><strong>Estimated Time of Arrival:</strong> {{ route.eta }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="weather-container">
+                <h3><i class="fa-solid fa-location-dot"></i> Weather</h3>
+                <div class="weather-card">
+                    <h3>Origin:{{ origin }}</h3>
+                    
+                    <p><i class="fa-solid fa-temperature-high icon-temperature"></i> Temperature: {{ weather_origin.temperature }}°C</p>
+        <p><i class="fa-solid fa-cloud icon-cloud"></i> Conditions: {{ weather_origin.description }}</p>
+        <p><i class="fa-solid fa-droplet icon-humidity"></i> Humidity: {{ weather_origin.humidity }}%</p>
+        <p><i class="fa-solid fa-cloud-sun icon-cloudiness"></i> Cloudiness: {{ weather_origin.cloudy }}%</p>
+        <p><i class="fa-solid fa-sun icon-sun"></i> Sunrise: {{ weather_origin.sunrise }} AM</p>
+        <p><i class="fa-solid fa-moon icon-moon"></i> Sunset: {{ weather_origin.sunset }} PM</p>
+                </div>
+               
+    
+                <div class="weather-card">
+                    <h3>Destination:{{ destination }}</h3>
+                 
+                    <p><i class="fa-solid fa-temperature-high icon-temperature"></i> Temperature: {{ weather_destination.temperature }}°C</p>
+        <p><i class="fa-solid fa-cloud icon-cloud"></i> Conditions: {{ weather_destination.description }}</p>
+        <p><i class="fa-solid fa-droplet icon-humidity"></i> Humidity: {{ weather_destination.humidity }}%</p>
+        <p><i class="fa-solid fa-cloud-sun icon-cloudiness"></i> Cloudiness: {{ weather_destination.cloudy }}%</p>
+        <p><i class="fa-solid fa-sun icon-sun"></i> Sunrise: {{ weather_destination.sunrise }} AM</p>
+        <p><i class="fa-solid fa-moon icon-moon"></i> Sunset: {{ weather_destination.sunset }} PM</p>
+                </div>
+            </div>
+
+            <div class="air-quality">
+                <h3>Air Quality Data:</h3>
+                <div>
+                    <h4>Origin:{{ origin }}</h4>
+                    <p><strong>City:</strong> {{ city_name_origin }}</p>
+                    <p><strong>AQI:</strong> {{ aqi_origin }}</p>
+                </div>
+                <div>
+                    <h4>Destination:{{ destination }}</h4>
+                    <p><strong>City:</strong> {{ city_name_destination }}</p>
+                    <p><strong>AQI:</strong> {{ aqi_destination }}</p>
+                </div>
+            </div>
+
+            <footer>
+                <p>&copy; 2025 Jarvis Routing System. All rights reserved.</p>
+            </footer>
+        {% endif %}
+    </main>
+
+    <script>
+        function toggleDirections(button) {
+            var routeCard = button.closest('.route-card');
+            var moreDirections = routeCard.querySelector('.more-directions');
+            if (moreDirections.style.display === 'none' || moreDirections.style.display === '') {
+                moreDirections.style.display = 'block';
+                button.textContent = 'Show Less Directions';
+            } else {
+                moreDirections.style.display = 'none';
+                button.textContent = 'Show More Directions';
+            }
+        }
+    </script>
+</body>
+</html>
